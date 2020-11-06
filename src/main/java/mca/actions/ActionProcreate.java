@@ -109,7 +109,13 @@ public class ActionProcreate extends AbstractAction
 	
 	public boolean getIsProcreating()
 	{
-		return actor.getDataManager().get(IS_PROCREATING);
+		try {
+			return actor.getDataManager().get(IS_PROCREATING);
+		} catch (Exception e) {
+			MCA.getLog().warn("Error procreating script: " + IS_PROCREATING);
+			MCA.getLog().warn(e);
+			return false;
+		}
 	}
 	
 	public boolean getHasHadTwins()

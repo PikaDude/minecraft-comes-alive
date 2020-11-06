@@ -381,7 +381,7 @@ public class EventHooksFML
 	public void itemCraftedEventHandler(ItemCraftedEvent event)
 	{
 		//Return damageable items to the inventory.
-		for (int i = 0; i < event.craftMatrix.getSizeInventory(); i++)
+		for (int i = 0; i < event.craftMatrix.getSizeInventory();)
 		{
 			ItemStack stack = event.craftMatrix.getStackInSlot(i);
 

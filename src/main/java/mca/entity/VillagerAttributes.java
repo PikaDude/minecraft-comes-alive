@@ -212,7 +212,13 @@ public class VillagerAttributes
 
 	public EnumProfession getProfessionEnum()
 	{
-		return EnumProfession.getProfessionById(dataManager.get(PROFESSION));
+		try {
+			return EnumProfession.getProfessionById(dataManager.get(PROFESSION));
+		} catch (Exception e) {
+			MCA.getLog().warn("Failed to getProfessionEnum " + PROFESSION); // Log the error
+			MCA.getLog().warn(e);
+			return EnumProfession.getProfessionById(0); // Return whatever the fuck this is instead lol
+		}
 	}
 
 	public EnumProfessionSkinGroup getProfessionSkinGroup()
@@ -626,7 +632,13 @@ public class VillagerAttributes
 
 	public int getHeldItemSlot()
 	{
-		return dataManager.get(HELD_ITEM_SLOT);
+		try {
+			return dataManager.get(HELD_ITEM_SLOT); // Meant to return a number.
+		} catch (Exception e) { // If something goes wrong...
+			MCA.getLog().warn("Failed to getHeldItemSlot " + HELD_ITEM_SLOT); // Log the error
+			MCA.getLog().warn(e);
+			return 0; // Return 0 instead lol
+		}
 	}
 
 	public void setHeldItemSlot(int value)
@@ -636,7 +648,14 @@ public class VillagerAttributes
 
 	public boolean getIsInfected()
 	{
-		return dataManager.get(IS_INFECTED);
+		
+		try {
+			return dataManager.get(IS_INFECTED);
+		} catch (Exception e) {
+			MCA.getLog().warn("Failed to getIsInfected " + IS_INFECTED); // Log the error
+			MCA.getLog().warn(e);
+			return false; // Return whatever the fuck this is instead lol
+		}
 	}
 
 	public void setIsInfected(boolean value)

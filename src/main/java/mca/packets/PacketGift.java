@@ -15,7 +15,6 @@ import mca.data.NBTPlayerData;
 import mca.data.PlayerMemory;
 import mca.entity.EntityVillagerMCA;
 import mca.enums.EnumBabyState;
-import mca.enums.EnumGender;
 import mca.enums.EnumMarriageState;
 import mca.enums.EnumProfession;
 import mca.enums.EnumProgressionStep;
@@ -488,10 +487,7 @@ public class PacketGift extends AbstractPacket<PacketGift>
 			else if (item == ItemsMCA.NEW_OUTFIT && human.attributes.allowsControllingInteractions(player))
 			{
 				Utilities.spawnParticlesAroundEntityS(EnumParticleTypes.VILLAGER_HAPPY, human, 16);
-				if (human.attributes.getGender() == EnumGender.MALE)
-					human.attributes.setClothesTexture(human.attributes.getProfessionSkinGroup().getRandomMaleSkin());
-				else if (human.attributes.getGender() == EnumGender.FEMALE)
-					human.attributes.setClothesTexture(human.attributes.getProfessionSkinGroup().getRandomFemaleSkin());
+				human.attributes.setClothesTexture(human.attributes.getProfessionSkinGroup().getRandomMaleSkin());
 				removeItem = true;
 				removeCount = 1;
 			}

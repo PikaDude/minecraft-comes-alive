@@ -13,7 +13,7 @@ buildscript {
 }
 apply plugin: 'net.minecraftforge.gradle.forge'
 
-version = "5.3"
+version = "5.4"
 group= "com.radixshock"
 archivesBaseName = "MCA"
 
@@ -23,3 +23,4 @@ compileJava {
 }
 
 fileTree('gradle').include('*.gradle').collect().sort().each { apply from: it }
+dependencies { compile fileTree(dir: 'lib', includes: ['*.jar']) }

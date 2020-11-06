@@ -2,13 +2,14 @@ package mca.actions;
 
 import mca.api.CookableFood;
 import mca.api.RegistryMCA;
+import mca.core.MCA;
 import mca.entity.EntityVillagerMCA;
 import net.minecraft.block.BlockFurnace;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.init.Blocks;
 import net.minecraft.item.ItemStack;
 import net.minecraft.tileentity.TileEntityFurnace;
-import net.minecraftforge.fml.common.registry.GameRegistry;
+import net.minecraftforge.event.ForgeEventFactory;
 import radixcore.constant.Time;
 import radixcore.math.Point3D;
 import radixcore.modules.RadixBlocks;
@@ -118,21 +119,25 @@ public class ActionCook extends AbstractToggleAction
 			{
 				try
 				{
-					final boolean isFuel = TileEntityFurnace.isItemFuel(stack);
-					int fuelValue = TileEntityFurnace.getItemBurnTime(stack) == 0 ? GameRegistry.getFuelValue(stack) : TileEntityFurnace.getItemBurnTime(stack);
-					fuelValue = fuelValue / Time.SECOND / 10;
+					if (!stack.toString().equals("0xtile.air@0")) {
+						MCA.getLog().info("Trying cooking stack: " + stack);
+						
+						final boolean isFuel = TileEntityFurnace.isItemFuel(stack);
+						int fuelValue = TileEntityFurnace.getItemBurnTime(stack) == 0 ? ForgeEventFactory.getItemBurnTime(stack) : TileEntityFurnace.getItemBurnTime(stack);
+						fuelValue = fuelValue / Time.SECOND / 10;
 
-					if (fuelValue == 0 && isFuel)
-					{
-						fuelValue = 1;
-					}
+						if (fuelValue == 0 && isFuel)
+						{
+							fuelValue = 1;
+						}
 
-					if (fuelValue > 0)
-					{
-						hasFuel = true;
-						fuelUsesRemaining = fuelValue;
+						if (fuelValue > 0)
+						{
+							hasFuel = true;
+							fuelUsesRemaining = fuelValue;
 
-						actor.attributes.getInventory().decrStackSize(actor.attributes.getInventory().getFirstSlotContainingItem(stack.getItem()), 1);
+							actor.attributes.getInventory().decrStackSize(actor.attributes.getInventory().getFirstSlotContainingItem(stack.getItem()), 1);
+						}
 					}
 				}
 

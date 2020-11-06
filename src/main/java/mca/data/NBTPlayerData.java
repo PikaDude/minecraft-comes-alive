@@ -18,6 +18,7 @@ import net.minecraft.entity.player.EntityPlayerMP;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.world.WorldServer;
 import net.minecraftforge.fml.common.FMLCommonHandler;
+import net.minecraftforge.fml.server.FMLServerHandler;
 
 public final class NBTPlayerData implements Serializable
 {
@@ -306,9 +307,10 @@ public final class NBTPlayerData implements Serializable
 		broadcastValueChange(FieldUpdateObj.get(FieldID.HAS_CHOSEN_DESTINY, TypeID.BOOLEAN, value));
 	}
 
-	public String getMcaName() 
+	public String getMcaName()
 	{
-		return mcaName;
+		if (mcaName.equals("none")) return FMLServerHandler.instance().getServer().getPlayerList().getPlayerByUUID(uuid).getName();
+		else return mcaName;
 	}
 
 	public void setMcaName(String value) 

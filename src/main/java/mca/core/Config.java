@@ -213,7 +213,7 @@ public final class Config implements Serializable
 	public List<IConfigElement> getCategories()
 	{
 		List<IConfigElement> elements = new ArrayList<IConfigElement>();
-
+		MCA.getLog().warn(config.getCategoryNames());
 		for (String s : config.getCategoryNames())
 		{
 			if (!s.equals("server"))
